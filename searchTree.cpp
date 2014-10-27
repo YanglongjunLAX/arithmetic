@@ -66,7 +66,7 @@ searchTree::_destoryAllNodes(Node *node)
 		_destoryAllNodes(node->right);
 		free(node);
 		node = NULL;
-		printf("freeNode\n");
+		printf("freeNode %d\n",node->data);
 	}
 }
 
