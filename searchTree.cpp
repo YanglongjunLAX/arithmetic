@@ -2,6 +2,8 @@
 #include <iostream>
 using namespace std;
 
+//v2，增加父节点
+
 typedef int T;
 
 class Node
@@ -10,6 +12,8 @@ public:
 	Node(){}
 	~Node(){}
 	T data;
+
+	Node *parent;
 	Node *left;
 	Node *right;
 };
@@ -23,11 +27,17 @@ private:
 	void _middle_order(Node *node);
 	void _pre_order(Node *node);
 	void _post_order(Node *node);
+	//最小的节点
+	Node* _min_Mun(Node *node);
+	//查找节点
+	// Node* _find_node(T t);
+	void _destoryAllNodes(Node *node);
 public:
 	searchTree();
 	~searchTree()
 	{
-		//销毁
+		printf("析构函数调用\n");
+		_destoryAllNodes(m_root);
 	}
 	//插入
 	void insertData(T data);
@@ -36,12 +46,44 @@ public:
 	//先序遍历
 	void pre_order();
 	//后序遍历
-	void post_order();	
+	void post_order();
+	//删除节点 数据为data的节点
+	void deleteData(T data);
+	void destoryAllNode();	
 };
 
 searchTree::searchTree()
 {
 
+}
+
+void
+searchTree::_destoryAllNodes(Node *node)
+{
+	if (node)
+	{
+		_destoryAllNodes(node->left);
+		_destoryAllNodes(node->right);
+		free(node);
+		node = NULL;
+		printf("freeNode\n");
+	}
+}
+
+void
+searchTree::destoryAllNode()
+{
+	_destoryAllNodes(m_root);
+}
+
+Node*
+searchTree::_min_Mun(Node *node)
+{
+	while(node->left)
+	{
+		node = node->left;
+	}
+	return node;
 }
 
 void
@@ -81,6 +123,7 @@ searchTree::insertData(T data)
 			{
 				q->left = p;
 			}
+			p->parent = q;
 		}
 	}
 }
@@ -142,6 +185,7 @@ searchTree::createNode(T data)
 	Node *node = (Node*)malloc(sizeof(Node));
 	if (node)
 	{
+		node->parent = NULL;
 		node->left = NULL;
 		node->right = NULL;
 		node->data = data;
@@ -152,6 +196,12 @@ searchTree::createNode(T data)
 		node = NULL;
 	}
 	return node;
+}
+
+//删除，有待完成
+void
+searchTree::deleteData(T data)
+{
 }
 
 ///
@@ -165,5 +215,8 @@ int main(int argc, char const *argv[])
 		s->insertData(a[i]);
 	}
 	
+	s->destoryAllNode();
+	free(s);
+
 	return 0;
 }
