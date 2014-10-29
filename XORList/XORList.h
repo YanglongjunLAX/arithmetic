@@ -28,8 +28,14 @@ public:
 	~XORList();
 	int getLength(){return m_length;}
 	void test();
+	//头插法
 	bool insert_data(T data);
+	//尾部插入
+	bool push_back(T data);
+	//打印函数 --从头到尾打印
 	void print_datas();
+	//删除第i个节点
+	void deleteDataAtIndex(long index);
 };
 
 #endif
