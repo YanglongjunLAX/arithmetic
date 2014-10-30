@@ -20,6 +20,18 @@ XORList::_xorPoint(Node *p,Node *q)
 }
 
 /*
+**删除 从开头删除
+*/
+void 
+XORList::_freeAllNodes()
+{
+	while(m_length > 0)
+	{
+		deleteDataAtIndex(1);
+	}
+}
+
+/*
 **创建一个结点
 */
 Node* 
@@ -175,8 +187,9 @@ XORList::deleteDataAtIndex(long index)
 	//长度减小
 	--m_length;
 
+	// p->xorP = NULL;
 	free(p);
-	p = NULL;  
+	p = NULL;
 }
 
 /*

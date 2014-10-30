@@ -23,9 +23,12 @@ private:
 	long m_length;
 	Node* _xorPoint(Node *p,Node *q);
 	Node* _createNode(T data);
+	//删除节点
+	void _freeAllNodes();
 public:
 	XORList(){m_length = 0;}
-	~XORList();
+	~XORList(){_freeAllNodes();}
+	void deleteAllNodes(){_freeAllNodes();}
 	int getLength(){return m_length;}
 	void test();
 	//头插法
